@@ -1,11 +1,19 @@
 from django.shortcuts import render
-from . import serializers
-from rest_framework import status, viewsets
-from rest_framework.response import Response
-from .models import UserBioData, User
+from rest_framework.viewsets import ModelViewSet
+from .models import UserInfo
+from django.contrib.auth.models import User
+from .serializers import UserSerializers, UserCreationSerializer
+from rest_framework import generics
+import django_filters.rest_framework
 
 
 # Create your views here.
-class UserCreationView(viewsets.ModelViewSet):
-    queryset = UserBioData.objects.all()
-    serializer_class = serializers.UserCreationSerializer
+class UserView(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializers
+    # filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+
+
+class UserCreationView(ModelViewSet):
+    queryset = UserInfo.objects.all()
+    serializer_class = UserCreationSerializer
