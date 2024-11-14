@@ -31,6 +31,16 @@ class Banner(models.Model):
 
 
 class Menu(models.Model):
+    name = models.CharField(max_length=50, default="menu")
+    slug = models.SlugField(
+        max_length=100, unique=True, blank=True, default="menu_slug"
+    )
+
+    def __str__(self):
+        return self.name
+
+
+class FoodMenu(models.Model):
     name = models.CharField(max_length=50)
     menu_img = models.URLField()
 
@@ -38,8 +48,10 @@ class Menu(models.Model):
         return self.name
 
 
-class MenuList(models.Model):
-    menu = models.ForeignKey(Menu, on_delete=models.CASCADE, related_name="menuList")
+class FoodMenuList(models.Model):
+    menu = models.ForeignKey(
+        FoodMenu, on_delete=models.CASCADE, related_name="menuList"
+    )
     item_name = models.CharField(max_length=100)
     item_price = models.CharField(max_length=100)
     ingredient1 = models.CharField(max_length=100, blank=True, null=True)

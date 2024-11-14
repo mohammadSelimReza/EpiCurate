@@ -16,6 +16,12 @@ class RestaurantSerializer(serializers.ModelSerializer):
         ]
 
 
+class MenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Menu
+        fields = ["name", "slug"]
+
+
 class BannerSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Banner
@@ -30,18 +36,20 @@ class BannerSerializer(serializers.ModelSerializer):
         ]
 
 
-class MenuSerializer(serializers.ModelSerializer):
+class FoodMenuSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Menu
+        model = models.FoodMenu
         fields = ["name", "menu_img"]
 
 
-class MenuListSerializer(serializers.ModelSerializer):
+class FoodMenuListSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
 
     class Meta:
-        model = models.MenuList
+        model = models.FoodMenuList
         fields = [
             "menu",
+            "name",
             "item_name",
             "item_price",
             "ingredient1",
@@ -51,6 +59,9 @@ class MenuListSerializer(serializers.ModelSerializer):
             "is_recommended",
             "is_seasonal",
         ]
+
+    def get_name(self, obj):
+        return obj.menu.name
 
     # def create(self, validated_data):
     #     menu_data = validated_data.pop("menu")

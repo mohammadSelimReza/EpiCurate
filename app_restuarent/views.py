@@ -10,19 +10,24 @@ class RestaurantView(viewsets.ModelViewSet):
     serializer_class = serializers.RestaurantSerializer
 
 
+class MenuViewSet(viewsets.ModelViewSet):
+    queryset = models.Menu.objects.all()
+    serializer_class = serializers.MenuSerializer
+
+
 class BannerView(viewsets.ModelViewSet):
     queryset = models.Banner.objects.all()
     serializer_class = serializers.BannerSerializer
 
 
 class MenuView(viewsets.ModelViewSet):
-    queryset = models.Menu.objects.all()
-    serializer_class = serializers.MenuSerializer
+    queryset = models.FoodMenu.objects.all()
+    serializer_class = serializers.FoodMenuSerializer
 
 
 class MenuListView(viewsets.ModelViewSet):
-    queryset = models.MenuList.objects.all()
-    serializer_class = serializers.MenuListSerializer
+    queryset = models.FoodMenuList.objects.all()
+    serializer_class = serializers.FoodMenuListSerializer
 
 
 class ReviewView(viewsets.ModelViewSet):
